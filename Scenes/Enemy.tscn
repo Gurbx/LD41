@@ -1,0 +1,294 @@
+[gd_scene load_steps=50 format=2]
+
+[ext_resource path="res://Scenes/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://graphics/shadow.png" type="Texture" id=2]
+[ext_resource path="res://graphics/eye/eyeIdle1.png" type="Texture" id=3]
+[ext_resource path="res://graphics/eye/eyeIdle2.png" type="Texture" id=4]
+[ext_resource path="res://graphics/eye/eyeIdle3.png" type="Texture" id=5]
+[ext_resource path="res://graphics/eye/eyeIdle4.png" type="Texture" id=6]
+[ext_resource path="res://graphics/eye/eyeIdle5.png" type="Texture" id=7]
+[ext_resource path="res://graphics/eye/eyeIdle6.png" type="Texture" id=8]
+[ext_resource path="res://graphics/eye/eyeIdle7.png" type="Texture" id=9]
+[ext_resource path="res://graphics/eye/eyeIdle9.png" type="Texture" id=10]
+[ext_resource path="res://graphics/eye/eyeIdle8.png" type="Texture" id=11]
+[ext_resource path="res://graphics/eye/eyeIdle10.png" type="Texture" id=12]
+[ext_resource path="res://graphics/eye/eyeIdle11.png" type="Texture" id=13]
+[ext_resource path="res://graphics/eye/eyeIdle12.png" type="Texture" id=14]
+[ext_resource path="res://graphics/eye/eye_aggro1.png" type="Texture" id=15]
+[ext_resource path="res://graphics/eye/eye_aggro2.png" type="Texture" id=16]
+[ext_resource path="res://graphics/eye/eye_aggro3.png" type="Texture" id=17]
+[ext_resource path="res://graphics/eye/eye_aggro4.png" type="Texture" id=18]
+[ext_resource path="res://graphics/eye/eye_aggro5.png" type="Texture" id=19]
+[ext_resource path="res://graphics/eye/eye_aggro6.png" type="Texture" id=20]
+[ext_resource path="res://graphics/eye/eye_aggro7.png" type="Texture" id=21]
+[ext_resource path="res://graphics/eye/eye_aggro8.png" type="Texture" id=22]
+[ext_resource path="res://graphics/eye/eye_aggro9.png" type="Texture" id=23]
+[ext_resource path="res://graphics/eye/eye_turn_left1.png" type="Texture" id=24]
+[ext_resource path="res://graphics/eye/eye_turn_left2.png" type="Texture" id=25]
+[ext_resource path="res://graphics/eye/eye_turn_left3.png" type="Texture" id=26]
+[ext_resource path="res://graphics/eye/eye_turn_left4.png" type="Texture" id=27]
+[ext_resource path="res://graphics/eye/eye_turn_up1.png" type="Texture" id=28]
+[ext_resource path="res://graphics/eye/eye_turn_up2.png" type="Texture" id=29]
+[ext_resource path="res://graphics/eye/eye_turn_up3.png" type="Texture" id=30]
+[ext_resource path="res://graphics/eye/eye_turn_up4.png" type="Texture" id=31]
+[ext_resource path="res://graphics/eye/eye_turn_right1.png" type="Texture" id=32]
+[ext_resource path="res://graphics/eye/eye_turn_right2.png" type="Texture" id=33]
+[ext_resource path="res://graphics/eye/eye_turn_right3.png" type="Texture" id=34]
+[ext_resource path="res://graphics/eye/eye_turn_right4.png" type="Texture" id=35]
+[ext_resource path="res://graphics/eye.png" type="Texture" id=36]
+[ext_resource path="res://graphics/pupil.png" type="Texture" id=37]
+[ext_resource path="res://Scenes/aggroMarker.tscn" type="PackedScene" id=38]
+[ext_resource path="res://graphics/particle4.png" type="Texture" id=39]
+[ext_resource path="res://sound/death_explosion.wav" type="AudioStream" id=40]
+[ext_resource path="res://sound/aggro.wav" type="AudioStream" id=41]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "aggro",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "turn_left",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "turn_up",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "deaggro",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "turn_right",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 15.909
+height = 4.04401
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "float"
+length = 6.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 3, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 4 ), Vector2( 0, -4 ), Vector2( 0, -4 ), Vector2( 0, 4 ), Vector2( 0, 4 ) ]
+}
+
+[sub_resource type="Gradient" id=4]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 0.898438, 0, 0, 1, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+
+flags = 4
+gradient = SubResource( 4 )
+width = 2048
+
+[sub_resource type="Curve" id=6]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.998698, 0 ), 0.0558094, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+
+flags = 4
+width = 2048
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 16.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 180.0
+flatness = 0.0
+gravity = Vector3( 0, 100, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 1.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 100.0
+damping_random = 1.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.0
+scale_random = 0.2
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 5 )
+hue_variation = 0.0
+hue_variation_random = 1.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Color", "Emission Shape", "Hue Variation", "Initial Velocity", "Scale", "Spread" ]
+
+[node name="Enemy" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+health = 10
+
+[node name="shadow" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+offset = Vector2( 0, 26 )
+_sections_unfolded = [ "Offset" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
+
+position = Vector2( 0, 4 )
+frames = SubResource( 1 )
+animation = "default"
+frame = 9
+playing = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="eye" type="Sprite" parent="." index="2"]
+
+visible = false
+texture = ExtResource( 36 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="pupil" type="Sprite" parent="eye" index="0"]
+
+texture = ExtResource( 37 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+
+visible = false
+shape = SubResource( 2 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="aggroMarker" parent="." index="4" instance=ExtResource( 38 )]
+
+[node name="aggroTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[node name="deaggroTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/float = SubResource( 3 )
+blend_times = [  ]
+
+[node name="Hit" type="Particles2D" parent="." index="8"]
+
+emitting = false
+amount = 64
+lifetime = 0.75
+one_shot = true
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 1.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 8 )
+texture = ExtResource( 39 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Material", "Process Material", "Textures", "Time" ]
+
+[node name="death" type="AudioStreamPlayer2D" parent="." index="9"]
+
+stream = ExtResource( 40 )
+volume_db = -0.4
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="aggro" type="AudioStreamPlayer2D" parent="." index="10"]
+
+stream = ExtResource( 41 )
+volume_db = -0.5
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="death_timer" type="Timer" parent="." index="11"]
+
+process_mode = 1
+wait_time = 0.75
+one_shot = true
+autostart = false
+
+[connection signal="player_in_range" from="aggroMarker" to="." method="_on_aggroMarker_player_in_range"]
+
+[connection signal="player_out_of_range" from="aggroMarker" to="." method="_on_aggroMarker_player_out_of_range"]
+
+[connection signal="timeout" from="aggroTimer" to="." method="_on_aggroTimer_timeout"]
+
+[connection signal="timeout" from="deaggroTimer" to="." method="_on_deaggroTimer_timeout"]
+
+[connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
+
+

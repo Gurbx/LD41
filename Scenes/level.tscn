@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/level.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/DungeonTiles.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/hole.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Breakable_Door2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Breakable_Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/door.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/ball.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Crystal.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Key.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=11]
+
+[node name="level" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="ground" type="TileMap" parent="." index="0"]
+
+position = Vector2( -217.124, 0 )
+mode = 1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 64, 32 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 786432, 1, 0, 786433, 1, 0, 851968, 1, 0, 851969, 1, 0 )
+_sections_unfolded = [ "Cell", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hole" parent="." index="1" instance=ExtResource( 3 )]
+
+position = Vector2( 132, 137 )
+
+[node name="walls" type="TileMap" parent="." index="2"]
+
+position = Vector2( -217.124, -16 )
+mode = 1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 64, 32 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = true
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 720896, 0, 0, 720897, 0, 0, 851967, 0, 0, 786434, 0, 0, 917503, 0, 0, 851970, 0, 0, 917504, 0, 0, 917505, 0, 0 )
+_sections_unfolded = [ "Cell", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Breakable_Door2" parent="walls" index="0" instance=ExtResource( 4 )]
+
+position = Vector2( -201.736, 48.0942 )
+
+[node name="Breakable_Door" parent="walls" index="1" instance=ExtResource( 5 )]
+
+position = Vector2( -36.3914, 169.456 )
+
+[node name="door" parent="walls" index="2" instance=ExtResource( 6 )]
+
+position = Vector2( -113.379, 117.987 )
+
+[node name="ball" parent="walls" index="3" instance=ExtResource( 7 )]
+
+position = Vector2( -380.588, 229.203 )
+
+[node name="Enemy" parent="walls" index="4" instance=ExtResource( 8 )]
+
+position = Vector2( 481.859, 60.177 )
+
+[node name="crystals" type="Node" parent="walls" index="5"]
+
+[node name="Crystal" parent="walls/crystals" index="0" instance=ExtResource( 9 )]
+
+[node name="Crystal2" parent="walls/crystals" index="1" instance=ExtResource( 9 )]
+
+position = Vector2( -14.9684, 13.771 )
+
+[node name="Crystal3" parent="walls/crystals" index="2" instance=ExtResource( 9 )]
+
+position = Vector2( 7.18484, 22.752 )
+
+[node name="Key" parent="walls/crystals" index="3" instance=ExtResource( 10 )]
+
+position = Vector2( -484.158, 100.365 )
+
+[node name="UI" parent="." index="3" instance=ExtResource( 11 )]
+
+[connection signal="crystal_picked" from="walls/ball" to="." method="_on_ball_crystal_picked"]
+
+[connection signal="damage_taken" from="walls/ball" to="." method="_on_ball_damage_taken"]
+
+[connection signal="shot_fired" from="walls/ball" to="." method="_on_ball_shot_fired"]
+
+[connection signal="collected" from="walls/crystals/Key" to="." method="_on_Key_collected"]
+
+

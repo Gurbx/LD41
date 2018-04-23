@@ -1,0 +1,184 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://Scenes/Shooter.gd" type="Script" id=1]
+[ext_resource path="res://graphics/shadow.png" type="Texture" id=2]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle1.png" type="Texture" id=3]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle2.png" type="Texture" id=4]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle3.png" type="Texture" id=5]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle4.png" type="Texture" id=6]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle5.png" type="Texture" id=7]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle6.png" type="Texture" id=8]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle7.png" type="Texture" id=9]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle8.png" type="Texture" id=10]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle9.png" type="Texture" id=11]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle10.png" type="Texture" id=12]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle11.png" type="Texture" id=13]
+[ext_resource path="res://graphics/eye/green_eye/eyeIdle12.png" type="Texture" id=14]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro1.png" type="Texture" id=15]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro2.png" type="Texture" id=16]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro3.png" type="Texture" id=17]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro4.png" type="Texture" id=18]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro5.png" type="Texture" id=19]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro6.png" type="Texture" id=20]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro7.png" type="Texture" id=21]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro8.png" type="Texture" id=22]
+[ext_resource path="res://graphics/eye/green_eye/eye_aggro9.png" type="Texture" id=23]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_left1.png" type="Texture" id=24]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_left2.png" type="Texture" id=25]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_left3.png" type="Texture" id=26]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_left4.png" type="Texture" id=27]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_up1.png" type="Texture" id=28]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_up2.png" type="Texture" id=29]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_up3.png" type="Texture" id=30]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_up4.png" type="Texture" id=31]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_right1.png" type="Texture" id=32]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_right2.png" type="Texture" id=33]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_right3.png" type="Texture" id=34]
+[ext_resource path="res://graphics/eye/green_eye/eye_turn_right4.png" type="Texture" id=35]
+[ext_resource path="res://Scenes/aggroMarker.gd" type="Script" id=36]
+[ext_resource path="res://sound/Laser.wav" type="AudioStream" id=37]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 25.0
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "aggro",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "turn_left",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "turn_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "deaggro",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "turn_right",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 270.049
+
+[node name="Shooter" type="KinematicBody2D"]
+
+scale = Vector2( 0.8, 0.8 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+offset = Vector2( 0, 24 )
+_sections_unfolded = [ "Offset" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+visible = false
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="2"]
+
+frames = SubResource( 2 )
+animation = "default"
+frame = 8
+playing = true
+
+[node name="aggroMarker" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 36 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggroMarker" index="0"]
+
+shape = SubResource( 3 )
+
+[node name="deaggroTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="aggroTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[node name="deathTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="cooldown" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 2.5
+one_shot = false
+autostart = false
+
+[node name="shootSound" type="AudioStreamPlayer2D" parent="." index="8"]
+
+stream = ExtResource( 37 )
+volume_db = -0.67
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[connection signal="body_entered" from="aggroMarker" to="aggroMarker" method="_on_aggroMarker_body_entered"]
+
+[connection signal="body_exited" from="aggroMarker" to="aggroMarker" method="_on_aggroMarker_body_exited"]
+
+[connection signal="player_in_range" from="aggroMarker" to="." method="_on_aggroMarker_player_in_range"]
+
+[connection signal="player_out_of_range" from="aggroMarker" to="." method="_on_aggroMarker_player_out_of_range"]
+
+[connection signal="timeout" from="deaggroTimer" to="." method="_on_deaggroTimer_timeout"]
+
+[connection signal="timeout" from="aggroTimer" to="." method="_on_aggroTimer_timeout"]
+
+[connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+
+
